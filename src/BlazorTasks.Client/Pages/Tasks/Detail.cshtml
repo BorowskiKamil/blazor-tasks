@@ -37,16 +37,19 @@
                 }
                 else
                 {
-                    <button type="button" class="btn btn-light" onclick=@OpenDescriptionEditor>
-                        @if (TodoTask.Description == null)
-                        {
+                    @if (TodoTask.Description == null)
+                    {
+                        <button type="button" class="btn btn-light" onclick=@OpenDescriptionEditor>
                             <span>Click to edit description</span>
-                        }
-                        else
-                        {
-                            <span>@TodoTask.Description</span>
-                        }
-                    </button>
+                        </button>
+                    }
+                    else
+                    {
+                        <p style="display: inline;">@TodoTask.Description</p>
+                        <button type="button" class="btn btn-light" onclick=@OpenDescriptionEditor>
+                            <span class="oi oi-pencil"></span>
+                        </button>
+                    }
                 }
             </p>
         </div>
