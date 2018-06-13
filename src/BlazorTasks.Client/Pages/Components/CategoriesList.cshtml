@@ -1,0 +1,60 @@
+@if (Data != null)
+{
+	<div class="mb-3 mt-3">
+		@foreach (var category in Data)
+		{
+			<span class="category-bagde badge badge-info pl-4" style="background-color:@category.Color;"><a href="#">@category.Name</a> <a onclick="@(() => EditCategory(category))" class="settings-cog oi oi-pencil ml-1"></a></span>
+		}
+		<NewCategoryModal OnCategoryCreate=@OnCategoryCreate/>
+	</div>
+
+	<EditCategoryModal Category=@CategoryInEdit CloseModal=@CloseModal SaveCategory=@SaveCategory OnRemoveCategory=@RemoveCategory/>
+}
+
+@functions
+{
+    [Parameter]
+	IList<Category> Data { get; set; }
+
+	[Parameter] 
+	Func<CategoryForm, Task<ApiError>> OnCategoryCreate { get; set; }
+
+	[Parameter]
+	Func<Category, Task<ApiError>> OnCategoryUpdate { get; set; }
+
+	[Parameter]
+	Func<Category, Task> OnRemoveCategory { get; set; }
+
+	Category CategoryInEdit { get; set; }
+
+	void EditCategory(Category category)
+    {
+        CategoryInEdit = category;
+		StateHasChanged();
+    }
+
+	bool CloseModal()
+    {
+        CategoryInEdit = null;
+		StateHasChanged();
+		return true;
+    }
+
+	async Task<ApiError> SaveCategory()
+	{
+		var result = await OnCategoryUpdate(CategoryInEdit);
+		if (result == null)
+		{
+			CategoryInEdit = null;
+			StateHasChanged();
+		}
+		return result;
+	}
+
+	async Task RemoveCategory()
+	{
+		await OnRemoveCategory(CategoryInEdit);
+		CategoryInEdit = null;
+		StateHasChanged();
+	}
+}

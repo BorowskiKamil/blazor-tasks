@@ -1,0 +1,43 @@
+<div class="row">
+	<div class="col-sm-12">
+		<h1>Add a Task</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-10">
+		<input type="text" class="form-control mb-2" placeholder="Task" aria-describedby="sizing-addon1" bind="@Form.Name" />
+
+		@if (Categories != null)
+		{
+			<select class="form-control" bind="@Form.CategoryId">
+				<option selected>Select category</option>
+				@foreach (var category in Categories)
+				{
+					<option value=@category.Id>@category.Name</option>
+				}
+			</select>
+		}
+		else
+		{
+			<select class="form-control" disabled>
+				<option>Loading categories...</option>
+			</select>
+		}
+
+	</div>
+	<div class="col-sm-2">
+		<button class="btn btn-primary" onclick="@(async () => await OnTaskCreate())">Add</button>
+	</div>
+</div>
+
+@functions
+{
+	[Parameter] 
+	TodoTaskForm Form { get; set; }
+
+	[Parameter]
+	IList<Category> Categories { get; set; }
+	
+	[Parameter] 
+	Func<Task> OnTaskCreate { get; set; }
+}

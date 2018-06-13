@@ -1,0 +1,5 @@
+.vs/
+src/BlazorTasks.Client/bin/
+src/BlazorTasks.Client/obj/
+src/BlazorTasks.Server/bin/
+src/BlazorTasks.Server/obj/

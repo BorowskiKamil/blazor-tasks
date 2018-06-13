@@ -1,0 +1,39 @@
+@page "/tasks"
+@inherits IndexModel
+
+
+<ErrorAlert Error=@Error />
+
+<div class="row">
+    <div class="col-md-6">
+
+        <h1>My Tasks</h1>
+
+        <CategoriesList Data=@Categories OnCategoryCreate=@OnCategoryCreate OnCategoryUpdate=@OnCategoryUpdate OnRemoveCategory=@OnRemoveCategory/>
+
+        @if (Tasks == null)
+        {
+            <div>Loading tasks...</div>
+        }
+        else
+        {
+            @if  (Tasks.Where(x => !x.IsDone).Count() > 0)
+            {
+                <p class="text-center font-weight-light">Only @Tasks.Where(x => !x.IsDone).Count() tasks to go.</p>
+            }
+            else
+            {
+                <p class="text-center font-weight-light">Tasks list is empty. Hurray! 🎉🎉🎉</p>
+            }
+
+            @foreach (var task in Tasks)
+            {
+                <SingleTask Data=@task ToogleIsDone=@ToogleIsDone OnTaskDelete=@OnTaskDelete />
+            }
+                
+        }
+    </div>
+    <div class="col-md-offset-1 col-md-4">
+        <TaskCreateForm Form=@TodoTaskForm Categories=@Categories OnTaskCreate=@OnTaskCreate/>
+    </div>
+</div>

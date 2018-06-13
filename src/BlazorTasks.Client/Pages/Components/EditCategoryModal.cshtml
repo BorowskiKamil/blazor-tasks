@@ -1,0 +1,65 @@
+@if(Category != null)
+{
+	<div class="modal" role="dialog" tabindex="-1" style="display: block;">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Category editor</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="@(() => CloseModal())">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<ErrorAlert Error=@Error />
+
+					<form>
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">Name:</label>
+							<input type="text" class="form-control" bind=@Category.Name />
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="col-form-label">Color:</label>
+							<input class="form-control color-form" type="color" bind=@Category.Color />
+							<input class="form-control" type="text" bind=@Category.Color />
+						</div>
+					</form>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" onclick="@(async () => await OnRemoveCategory())">Remove</button>
+					<button type="button" class="btn btn-primary" onclick="@(async () => await OnSaveCategory())">Save changes</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="@(() => CloseModal())">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop show"></div>
+}
+
+
+@functions
+{
+	[Parameter]
+	Category Category { get; set; }
+
+	ApiError Error { get; set; }
+
+	[Parameter]
+	Func<bool> CloseModal { get; set; }
+
+	[Parameter]
+	Func<Task<ApiError>> SaveCategory { get; set; }
+
+	[Parameter]
+	Func<Task> OnRemoveCategory { get; set; }
+
+	async Task OnSaveCategory()
+	{
+		var result = await SaveCategory();
+		if (result != null)
+		{
+			Error = result;
+		}
+	}
+}

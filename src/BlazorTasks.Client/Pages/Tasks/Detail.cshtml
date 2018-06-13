@@ -1,0 +1,54 @@
+@page "/tasks/detail/{TaskId}"
+@inherits DetailModel
+
+<div class="row">
+    <div class="col-md-12">
+        <h1><a href="tasks"><button type="button" class="btn btn-light" style="margin-top: -7px;"><span class="oi oi-chevron-left"></span></button></a> Details</h1>
+    </div>
+</div>
+
+@if (Error != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <ErrorAlert Error=@Error />
+        </div>
+    </div>
+}
+
+@if (TodoTask != null)
+{   
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@TodoTask.Name</h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+                <span class="badge badge-info" style="background-color:@TodoTask.Category.Color;">
+                    @TodoTask.Category.Name
+                </span>
+            </h6>
+            <p class="card-text">
+                @if (IsDescriptionEditorOpened)
+                {
+                    <div class="form-group">
+                        <textarea class="form-control mb-2" bind=@TodoTask.Description rows="5"></textarea>
+                        <button type="button" class="btn btn-primary" onclick="@(async () => await SaveDescription())">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=@CancelDescriptionEditor>Cancel</button>
+                    </div>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-light" onclick=@OpenDescriptionEditor>
+                        @if (TodoTask.Description == null)
+                        {
+                            <span>Click to edit description</span>
+                        }
+                        else
+                        {
+                            <span>@TodoTask.Description</span>
+                        }
+                    </button>
+                }
+            </p>
+        </div>
+    </div>
+}
