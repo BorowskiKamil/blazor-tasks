@@ -5,35 +5,40 @@
 <ErrorAlert Error=@Error />
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
 
-        <h1>My Tasks</h1>
+        <h1 class="mb-4">My Tasks</h1>
 
-        <CategoriesList Data=@Categories OnCategoryCreate=@OnCategoryCreate OnCategoryUpdate=@OnCategoryUpdate OnRemoveCategory=@OnRemoveCategory/>
-
-        @if (Tasks == null)
+        @if (Tasks != null)
         {
-            <div>Loading tasks...</div>
-        }
-        else
-        {
-            @if  (Tasks.Where(x => !x.IsDone).Count() > 0)
+            @if  (Tasks.Where(x => !x.IsDone).Count() < 3)
             {
-                <p class="text-center font-weight-light">Only @Tasks.Where(x => !x.IsDone).Count() tasks to go.</p>
+                <p class="text-center tasks-counter">Keep going! Only @Tasks.Where(x => !x.IsDone).Count() tasks to go! 👏🏿</p>
             }
             else
             {
-                <p class="text-center font-weight-light">Tasks list is empty. Hurray! 🎉🎉🎉</p>
+                <p class="text-center tasks-counter">Hurray! Your tasks list is empty. 🎉🎉🎉</p>
             }
-
-            @foreach (var task in Tasks)
-            {
-                <SingleTask Data=@task ToogleIsDone=@ToogleIsDone OnTaskDelete=@OnTaskDelete />
-            }
-                
         }
+
+        <div class="card bg-light tasks-card pb-5">
+            @if (Tasks == null)
+            {
+                <div>Loading tasks...</div>
+            }
+            else
+            {
+                <NewTaskCreateForm Categories=@Categories OnTaskCreate=@OnTaskCreate/>
+                @foreach (var task in Tasks)
+                {
+                    <SingleTask Data=@task ToogleIsDone=@ToogleIsDone OnTaskDelete=@OnTaskDelete />
+                }            
+            }
+        </div>
     </div>
     <div class="col-md-offset-1 col-md-4">
-        <TaskCreateForm Form=@TodoTaskForm Categories=@Categories OnTaskCreate=@OnTaskCreate/>
+
+        <CategoriesList Data=@Categories OnCategoryCreate=@OnCategoryCreate OnCategoryUpdate=@OnCategoryUpdate OnRemoveCategory=@OnRemoveCategory/>
+
     </div>
 </div>

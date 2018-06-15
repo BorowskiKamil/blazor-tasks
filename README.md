@@ -23,10 +23,10 @@ When running on Windows, the server is using in memory database on default confi
 ## Screenshots
 
 #### Tasks List
-![Tasks List](https://i.imgur.com/NrfFMSJ.png "Tasks List")
+![Tasks List](https://i.imgur.com/g2GRlUL.png "Tasks List")
 
 #### Task Details
-![Task Details](https://i.imgur.com/9jKgCst.png "Task Details")
+![Task Details](https://i.imgur.com/vCqegZa.png "Task Details")
 
 #### Editing a category
-![Editing a category](https://i.imgur.com/tUZ25DV.png "Editing a category")
+![Editing a category](https://i.imgur.com/rMuFFbR.png "Editing a category")

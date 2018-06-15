@@ -1,15 +1,40 @@
 @if (Data != null)
 {
+	<div class="card categories-card">
+		<div class="card-body">
+			<h5 class="card-title mb-4">Categories</h5>
+			@foreach (var category in Data)
+			{
+				<div class="category-bagde" style="border-color: @category.Color;">
+					<a href="#" style="color: @category.Color;">@category.Name</a> 
+					<a onclick="@(() => EditCategory(category))" class="settings-cog oi oi-pencil ml-1"></a>
+				</div>
+				@*<span class="category-bagde badge badge-info pl-4" style="background-color:@category.Color;">
+					<a href="#">@category.Name</a> 
+					<a onclick="@(() => EditCategory(category))" class="settings-cog oi oi-pencil ml-1"></a>
+				</span>*@
+			}
+			<NewCategoryModal OnCategoryCreate=@OnCategoryCreate/>
+		</div>
+	</div>
+
+	<EditCategoryModal Category=@CategoryInEdit CloseModal=@CloseModal SaveCategory=@SaveCategory OnRemoveCategory=@RemoveCategory/>
+}
+
+@*if (Data != null)
+{
+	<h1>Categories</h1>
 	<div class="mb-3 mt-3">
 		@foreach (var category in Data)
 		{
 			<span class="category-bagde badge badge-info pl-4" style="background-color:@category.Color;"><a href="#">@category.Name</a> <a onclick="@(() => EditCategory(category))" class="settings-cog oi oi-pencil ml-1"></a></span>
 		}
+		<div>New Category</div>
 		<NewCategoryModal OnCategoryCreate=@OnCategoryCreate/>
 	</div>
 
 	<EditCategoryModal Category=@CategoryInEdit CloseModal=@CloseModal SaveCategory=@SaveCategory OnRemoveCategory=@RemoveCategory/>
-}
+}*@
 
 @functions
 {

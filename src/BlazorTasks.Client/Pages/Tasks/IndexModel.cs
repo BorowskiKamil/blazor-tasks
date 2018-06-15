@@ -18,8 +18,6 @@ namespace BlazorTasks.Client.Pages.Tasks
 
         public ApiError Error { get; set; }
 
-		public TodoTaskForm TodoTaskForm { get; set; } = new TodoTaskForm();
-
         public List<TodoTask> Tasks { get; set; }
 
         public List<Category> Categories { get; set; }
@@ -30,7 +28,9 @@ namespace BlazorTasks.Client.Pages.Tasks
             Categories = await _categoriesService.GetCategories();
         }
 
-        public async Task OnTaskCreate()
+
+
+        public async Task OnTaskCreate(TodoTaskForm TodoTaskForm)
         {
             if (!string.IsNullOrEmpty(TodoTaskForm.Name) && !string.IsNullOrEmpty(TodoTaskForm.CategoryId))
             {
@@ -44,8 +44,6 @@ namespace BlazorTasks.Client.Pages.Tasks
                 {
                     Error = result.Error;
                 }
-
-                TodoTaskForm.Name = "";
                 StateHasChanged();
             }
         }

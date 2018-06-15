@@ -1,0 +1,76 @@
+@if (FormOpened)
+{
+	@if (Creating)
+	{
+		<div class="task form-row"> 
+			<div class="col-md-12">
+				<button style="width:100%;" class="btn btn-sm btn-light" onclick="@(() => ToogleForm())">
+					<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Creating...
+				</button>
+			</div>
+		</div>
+	}
+	else
+	{
+		<div class="task form-row"> 
+			<div class="col-md-3 category-container" style="text-align:right;">
+				<select class="form-control" bind="@Form.CategoryId">
+					<option selected>Select category</option>
+					@foreach (var category in Categories)
+					{
+						<option value=@category.Id>@category.Name</option>
+					}
+				</select>
+			</div>
+			<div class="col-md-7 name-container" >
+				<input type="text" class="form-control" placeholder="Task" aria-describedby="sizing-addon1" bind="@Form.Name" />
+			</div>
+			<div class="col-md-2 options-container" style="text-align:right;">
+				<button class="btn btn-light" onclick="@(async () => await CreateTask())">Add</button>
+				<button class="btn btn-light" onclick="@(() => ToogleForm())">X</button>
+			</div>
+		</div>
+	}
+}
+else
+{
+	<div class="task form-row"> 
+		<div class="col-md-12">
+			<button style="width:100%;" class="btn btn-light" onclick="@(() => ToogleForm())">Create a task</button>
+		</div>
+	</div>
+}
+
+
+@functions
+{
+	TodoTaskForm Form { get; set; } = new TodoTaskForm();
+
+	bool FormOpened { get; set; } = false;
+
+	[Parameter]
+	IList<Category> Categories { get; set; }
+	
+	[Parameter] 
+	Func<TodoTaskForm, Task> OnTaskCreate { get; set; }
+
+	bool IsOpened { get; set; }
+
+	bool Creating { get; set; } = false;
+
+	async Task CreateTask()
+	{
+		Creating = true;
+		StateHasChanged();
+		await OnTaskCreate(Form);
+		Form.Name = "";
+		Creating = false;
+		ToogleForm();
+	}
+
+	void ToogleForm()
+	{
+		FormOpened = !FormOpened;
+		StateHasChanged();
+	}
+}

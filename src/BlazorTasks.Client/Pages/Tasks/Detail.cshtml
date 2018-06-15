@@ -18,14 +18,14 @@
 
 @if (TodoTask != null)
 {   
-    <div class="card">
+    <div class="card" style="border-color: white;">
         <div class="card-body">
-            <h5 class="card-title">@TodoTask.Name</h5>
-            <h6 class="card-subtitle mb-2 text-muted">
-                <span class="badge badge-info" style="background-color:@TodoTask.Category.Color;">
-                    @TodoTask.Category.Name
-                </span>
-            </h6>
+            <h1>
+                <div class="category-container" style="display:inline-block; top: -9px; position: relative;">
+                    <span class="badge badge-info" style="background-color:@TodoTask.Category.Color;">@TodoTask.Category.Name</span>
+                </div>
+                @TodoTask.Name
+            </h1>
             <p class="card-text">
                 @if (IsDescriptionEditorOpened)
                 {
@@ -45,7 +45,7 @@
                     }
                     else
                     {
-                        <p style="display: inline;">@TodoTask.Description</p>
+                        <p class="task-description">@TodoTask.Description</p>
                         <button type="button" class="btn btn-light" onclick=@OpenDescriptionEditor>
                             <span class="oi oi-pencil"></span>
                         </button>
