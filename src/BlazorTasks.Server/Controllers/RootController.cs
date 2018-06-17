@@ -17,6 +17,7 @@ namespace BlazorTasks.Server.Controllers
                 Self = Link.To(nameof(GetRoot)),
                 Categories = Link.To(nameof(CategoriesController.GetCategoriesAsync)),
                 Tasks = Link.To(nameof(TasksController.GetTasksAsync)),
+                Comments = Link.To(nameof(CommentsController.GetCommentsAsync))
             };
 
             return Ok(response); 

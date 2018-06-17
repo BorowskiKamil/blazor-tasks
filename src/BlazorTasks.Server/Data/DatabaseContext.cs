@@ -14,5 +14,7 @@ namespace BlazorTasks.Server.Data
 
         public DbSet<CategoryEntity> Categories { get; set; }
 
+        public DbSet<CommentEntity> Comments { get; set; }
+
     }
 }

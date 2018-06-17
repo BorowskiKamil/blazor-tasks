@@ -34,6 +34,7 @@ namespace BlazorTasks.Server
             #region Options
             services.AddOptions();
             services.Configure<DatabaseOptions>(Configuration.GetSection("DatabaseOptions"));
+            services.Configure<PagingOptions>(Configuration.GetSection("DefaultPagingOptions"));
             var settings = Configuration.GetSection("DatabaseOptions").Get<DatabaseOptions>();
             #endregion
 
@@ -66,6 +67,7 @@ namespace BlazorTasks.Server
 
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

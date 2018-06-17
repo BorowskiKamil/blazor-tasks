@@ -8,5 +8,7 @@ namespace BlazorTasks.Server.Models
 
         public Link Tasks { get; set; }
 
+        public Link Comments { get; set; }
+
     }
 }

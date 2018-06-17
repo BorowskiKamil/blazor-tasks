@@ -18,6 +18,10 @@ namespace BlazorTasks.Server.Infrastructure
                 .ForMember(dest => dest.Self, opt => opt.MapFrom(src =>
                     Link.To(nameof(Controllers.CategoriesController.GetCategoryAsync), new { categoryId = src.Id })));
 
+            CreateMap<CommentEntity, Comment>()
+                .ForMember(dest => dest.Self, opt => opt.MapFrom(src =>
+                    Link.To(nameof(Controllers.CommentsController.GetCommentAsync), new { commentId = src.Id })));
+
         }
     }
 }
