@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BlazorTasks.Server.Models;
+using BlazorTasks.Server.Models.Entities;
 using BlazorTasks.Server.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -23,9 +24,10 @@ namespace BlazorTasks.Server.Controllers
 
 		[HttpGet(Name = nameof(GetTasksAsync))]
 		public async Task<IActionResult> GetTasksAsync(
+			[FromQuery] SearchOptions<TodoTask, TodoTaskEntity> searchOptions,
 			CancellationToken ct)
 		{
-			var tasks = await _repository.GetTasksAsync(ct);
+			var tasks = await _repository.GetTasksAsync(searchOptions, ct);
 
 			var response = new TodoTasksResponse
 			{

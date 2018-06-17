@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using BlazorTasks.Client.Infrastructure;
 using BlazorTasks.Client.Models;
 using Newtonsoft.Json;
 
@@ -11,9 +14,12 @@ namespace BlazorTasks.Client
 	public static class HttpClientExtensions
 	{
 
-		public static async Task<ApiObjectResponse<TObject>> ApiGetAsync<TObject>(this HttpClient httpClient, string requestUri) where TObject : new()
+		public static async Task<ApiObjectResponse<TObject>> ApiGetAsync<TObject>(
+			this HttpClient httpClient, 
+			string requestUri,
+			Dictionary<string, string> query = null) where TObject : new()
 		{
-			var result = await httpClient.GetAsync(requestUri);
+			var result = await httpClient.GetAsync(QueryHelpers.AddQueryString(requestUri, query));
 
 			TObject resultResponse = default(TObject);
 			ApiError error = null;
@@ -112,6 +118,5 @@ namespace BlazorTasks.Client
 				StatusCode = result.StatusCode
 			};
 		}
-
 	}
 }

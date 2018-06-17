@@ -21,9 +21,13 @@ namespace BlazorTasks.Server.Repositories
 		}
 
 		public async Task<IEnumerable<TodoTask>> GetTasksAsync(
+			SearchOptions<TodoTask, TodoTaskEntity> searchOptions,
 			CancellationToken ct)
 		{
-			var entities = await _dbContext.Tasks.Include(x => x.Category).ToListAsync(ct);
+			IQueryable<TodoTaskEntity> query = _dbContext.Tasks;
+			query = searchOptions.Apply(query);
+
+			var entities = await query.Include(x => x.Category).ToArrayAsync(ct);
 
 			return entities.Select(x => Mapper.Map<TodoTask>(x));
 		}

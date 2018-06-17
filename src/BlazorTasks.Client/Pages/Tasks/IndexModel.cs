@@ -24,11 +24,15 @@ namespace BlazorTasks.Client.Pages.Tasks
 
         protected override async Task OnInitAsync()
         {
-            Tasks = (await _tasksService.GetTasks()).Value.OrderBy(x => x.IsDone).ToList();
+            Tasks = (await _tasksService.GetTasks()).Response.Value.OrderBy(x => x.IsDone).ToList();
             Categories = (await _categoriesService.GetCategories()).Value.ToList();
         }
 
-
+        public async Task FilterByCategory(Category category)
+        {
+            Tasks = (await _tasksService.GetTasks(category)).Response.Value.OrderBy(x => x.IsDone).ToList();
+            StateHasChanged();
+        }
 
         public async Task OnTaskCreate(TodoTaskForm TodoTaskForm)
         {

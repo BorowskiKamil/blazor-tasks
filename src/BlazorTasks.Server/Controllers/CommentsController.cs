@@ -6,6 +6,7 @@ using BlazorTasks.Server.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Linq;
+using BlazorTasks.Server.Models.Entities;
 
 namespace BlazorTasks.Server.Controllers
 {
@@ -26,6 +27,7 @@ namespace BlazorTasks.Server.Controllers
 		[HttpGet(Name = nameof(GetCommentsAsync))]
 		public async Task<IActionResult> GetCommentsAsync(
 			[FromQuery] PagingOptions pagingOptions,
+			[FromQuery] SearchOptions<Comment, CommentEntity> searchOptions,
 			CancellationToken ct)
 		{
 			if (!ModelState.IsValid) return BadRequest(new ApiError(ModelState));
@@ -35,7 +37,7 @@ namespace BlazorTasks.Server.Controllers
 
 			var collectionLink = Link.ToCollection(nameof(GetCommentsAsync));
 
-			var companies = await _repository.GetCommentsAsync(pagingOptions, ct);
+			var companies = await _repository.GetCommentsAsync(pagingOptions, searchOptions, ct);
 
 			var collection = PagedCollection<Comment>.Create<CommentResponse>(
                 collectionLink,

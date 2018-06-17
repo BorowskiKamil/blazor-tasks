@@ -6,7 +6,7 @@
 			@foreach (var category in Data)
 			{
 				<div class="category-bagde" style="border-color: @category.Color;">
-					<a href="#" style="color: @category.Color;">@category.Name</a> 
+					<a onclick="@(() => FilterByCategory(category))" style="color: @category.Color;">@category.Name</a> 
 					<a onclick="@(() => EditCategory(category))" class="settings-cog oi oi-pencil ml-1"></a>
 				</div>
 				@*<span class="category-bagde badge badge-info pl-4" style="background-color:@category.Color;">
@@ -46,6 +46,9 @@
 
 	[Parameter]
 	Func<Category, Task<ApiError>> OnCategoryUpdate { get; set; }
+
+	[Parameter]
+	Func<Category, Task> FilterByCategory { get; set; }
 
 	[Parameter]
 	Func<Category, Task> OnRemoveCategory { get; set; }

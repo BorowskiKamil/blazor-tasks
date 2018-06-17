@@ -30,9 +30,13 @@ namespace BlazorTasks.Server.Repositories
 			return Mapper.Map<Comment>(entity);
 		}
 
-		public async Task<PagedResults<Comment>> GetCommentsAsync(PagingOptions pagingOptions, CancellationToken ct)
+		public async Task<PagedResults<Comment>> GetCommentsAsync(
+			PagingOptions pagingOptions, 
+			SearchOptions<Comment, CommentEntity> searchOptions,
+			CancellationToken ct)
 		{
 			IQueryable<CommentEntity> query = _dbContext.Comments;
+			query = searchOptions.Apply(query);
 
 			var size = await query.CountAsync(ct);
 
