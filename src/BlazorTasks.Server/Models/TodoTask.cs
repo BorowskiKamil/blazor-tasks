@@ -2,7 +2,7 @@ using System;
 
 namespace BlazorTasks.Server.Models
 {
-	public class TodoTask
+	public class TodoTask : Resource
 	{
 		public Guid Id { get; set; }
 

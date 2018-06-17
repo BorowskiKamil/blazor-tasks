@@ -54,8 +54,7 @@ namespace BlazorTasks.Client
 			if (result.IsSuccessStatusCode)
 			{
 				var a = await result.Content.ReadAsStringAsync();
-				Console.WriteLine(a);
-				resultResponse = JsonConvert.DeserializeObject<TObject>(a);;
+				resultResponse = JsonConvert.DeserializeObject<TObject>(a);
 			}
 			else
 			{

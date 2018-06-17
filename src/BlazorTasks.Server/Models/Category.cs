@@ -2,7 +2,7 @@ using System;
 
 namespace BlazorTasks.Server.Models
 {
-	public class Category
+	public class Category : Resource
 	{
 		public Guid Id { get; set; }
 

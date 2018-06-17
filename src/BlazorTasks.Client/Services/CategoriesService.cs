@@ -37,9 +37,9 @@ namespace BlazorTasks.Client.Services
             return await _httpClient.ApiUpdateAsync($"categories/{category.Id}", category);
         }
 
-		public async Task<List<Category>> GetCategories()
+		public async Task<Collection<Category>> GetCategories()
         {
-            return await _httpClient.GetJsonAsync<List<Category>>("categories");
+            return await _httpClient.GetJsonAsync<Collection<Category>>("categories");
         }
 
 		public async Task<ApiResponse> DeleteCategory(string id)

@@ -10,9 +10,14 @@ namespace BlazorTasks.Server.Infrastructure
         public MappingProfile()
         {
             CreateMap<TodoTaskEntity, TodoTask>()
-                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => Mapper.Map<Category>(src.Category)));
+                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => Mapper.Map<Category>(src.Category)))
+                .ForMember(dest => dest.Self, opt => opt.MapFrom(src =>
+                    Link.To(nameof(Controllers.TasksController.GetTaskAsync), new { taskid = src.Id })));
             
-            CreateMap<CategoryEntity, Category>();
+            CreateMap<CategoryEntity, Category>()
+                .ForMember(dest => dest.Self, opt => opt.MapFrom(src =>
+                    Link.To(nameof(Controllers.CategoriesController.GetCategoryAsync), new { categoryId = src.Id })));
+
         }
     }
 }

@@ -11,6 +11,10 @@ namespace BlazorTasks.Server.Repositories
 		Task<IEnumerable<Category>> GetCategoriesAsync(
 			CancellationToken ct);
 
+		Task<Category> GetCategoryAsync(
+			Guid categoryId,
+			CancellationToken ct);
+
 		Task<Category> CreateCategoryAsync(
 			CategoryForm form,
 			CancellationToken ct

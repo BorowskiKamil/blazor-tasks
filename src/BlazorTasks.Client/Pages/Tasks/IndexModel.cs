@@ -24,8 +24,8 @@ namespace BlazorTasks.Client.Pages.Tasks
 
         protected override async Task OnInitAsync()
         {
-            Tasks = (await _tasksService.GetTasks()).OrderBy(x => x.IsDone).ToList();
-            Categories = await _categoriesService.GetCategories();
+            Tasks = (await _tasksService.GetTasks()).Value.OrderBy(x => x.IsDone).ToList();
+            Categories = (await _categoriesService.GetCategories()).Value.ToList();
         }
 
 

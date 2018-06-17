@@ -26,9 +26,25 @@ namespace BlazorTasks.Server.Controllers
 			CancellationToken ct)
 		{
 			var categories = await _repository.GetCategoriesAsync(ct);
-			if (categories == null || categories.Count() == 0) NotFound();
 
-			return Ok(categories);
+			var response = new CategoriesResponse
+			{
+				Value = categories.ToArray(),
+				Self = Link.ToCollection(nameof(GetCategoriesAsync))
+			};
+
+			return Ok(response);
+		}
+
+		[HttpGet("{categoryId}", Name = nameof(GetCategoryAsync))]
+		public async Task<IActionResult> GetCategoryAsync(
+			Guid categoryId,
+			CancellationToken ct)
+		{
+			var task = await _repository.GetCategoryAsync(categoryId, ct);
+			if (task == null) NotFound();
+
+			return Ok(task);
 		}
 
 		[HttpPost(Name = nameof(CreateCategoryAsync))]

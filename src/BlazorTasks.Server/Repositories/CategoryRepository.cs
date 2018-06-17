@@ -29,6 +29,14 @@ namespace BlazorTasks.Server.Repositories
 			return entities.Select(x => Mapper.Map<Category>(x));
 		}
 
+		public async Task<Category> GetCategoryAsync(Guid categoryId, CancellationToken ct)
+		{
+			var entity = await _dbContext.Categories.FirstOrDefaultAsync(x => x.Id == categoryId, ct);
+			if (entity == null) return null;
+
+			return Mapper.Map<Category>(entity);
+		}
+
 		public async Task<Category> CreateCategoryAsync(
 			CategoryForm form,
 			CancellationToken ct

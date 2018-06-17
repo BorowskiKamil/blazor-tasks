@@ -60,6 +60,7 @@ namespace BlazorTasks.Server
             services.AddMvc(opt =>
             {
                 opt.Filters.Add(typeof(JsonExceptionFilter));
+                opt.Filters.Add(typeof(LinkRewritingFilter));
                 
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

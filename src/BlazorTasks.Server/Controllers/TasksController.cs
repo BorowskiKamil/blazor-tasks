@@ -26,9 +26,14 @@ namespace BlazorTasks.Server.Controllers
 			CancellationToken ct)
 		{
 			var tasks = await _repository.GetTasksAsync(ct);
-			if (tasks == null || tasks.Count() == 0) NotFound();
 
-			return Ok(tasks);
+			var response = new TodoTasksResponse
+			{
+				Value = tasks.ToArray(),
+				Self = Link.ToCollection(nameof(GetTasksAsync))
+			};
+
+			return Ok(response);
 		}
 
 		[HttpGet("{taskid}", Name = nameof(GetTaskAsync))]

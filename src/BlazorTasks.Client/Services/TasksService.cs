@@ -31,9 +31,9 @@ namespace BlazorTasks.Client.Services
             return await _httpClient.ApiGetAsync<TodoTask>($"tasks/{taskId}");
         }
 
-		public async Task<List<TodoTask>> GetTasks()
+		public async Task<Collection<TodoTask>> GetTasks()
         {
-            return await _httpClient.GetJsonAsync<List<TodoTask>>("tasks");
+            return await _httpClient.GetJsonAsync<Collection<TodoTask>>("tasks");
         }
 
         public async Task<ApiObjectResponse<TodoTask>> CreateTask(TodoTaskForm form)
