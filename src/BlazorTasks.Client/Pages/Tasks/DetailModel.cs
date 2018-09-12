@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using BlazorTasks.Client.Models;
 using BlazorTasks.Client.Services;
-using Microsoft.AspNetCore.Blazor.Browser.Interop;
+using Microsoft.AspNetCore.Blazor.Browser;
 using Microsoft.AspNetCore.Blazor.Components;
 
 namespace BlazorTasks.Client.Pages.Tasks
