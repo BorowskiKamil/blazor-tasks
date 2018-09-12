@@ -80,7 +80,7 @@ html, body {
 }
 
 .main {
-    background-color: #F6F6FC;
+    background-color: #f8f9fa;
 	flex: 1;
 }
 
@@ -115,7 +115,8 @@ h1 {
 }
 
 .tasks-counter {
-	font-weight: 300;
+    font-weight: 400;
+    margin-top: -20px;
 }
 
 .task .options-container {
@@ -154,7 +155,7 @@ h1 {
 
 .categories-card {
 	margin-top: 50px;
-	border-color: white;
+	border-color: #f8f9fa;
 }
 
 .category-bagde {

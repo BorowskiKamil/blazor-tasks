@@ -40,11 +40,7 @@ namespace BlazorTasks.Server
 
             services.AddDbContextPool<DatabaseContext>(opt => 
                 {
-                    if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && settings.UseInMemoryDatabase)
-                    {
-                        opt.UseInMemoryDatabase("blazor_tasks");
-                    }
-                    else opt.UseMySql(settings.ConnectionString);
+                    opt.UseInMemoryDatabase("blazor_tasks");
                 });
 
             services.AddAutoMapper();

@@ -11,14 +11,15 @@
 
         @if (Tasks != null)
         {
-            @if  (Tasks.Where(x => !x.IsDone).Count() < 3)
+            @*@if  (Tasks.Where(x => !x.IsDone).Count() < 3)
             {
                 <p class="text-center tasks-counter">Keep going! Only @Tasks.Where(x => !x.IsDone).Count() tasks to go! 👏🏿</p>
             }
             else
             {
                 <p class="text-center tasks-counter">Hurray! Your tasks list is empty. 🎉🎉🎉</p>
-            }
+            }*@
+            <p class="tasks-counter">Showing @Tasks.Count() results</p>
         }
 
         <div class="card bg-light tasks-card pb-5">
@@ -38,7 +39,10 @@
     </div>
     <div class="col-md-offset-1 col-md-4">
 
+        <TasksSearching />
+
         <CategoriesList FilterByCategory=@FilterByCategory Data=@Categories OnCategoryCreate=@OnCategoryCreate OnCategoryUpdate=@OnCategoryUpdate OnRemoveCategory=@OnRemoveCategory/>
 
+        <TasksFilters />
     </div>
 </div>

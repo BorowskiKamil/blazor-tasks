@@ -3,7 +3,7 @@
 Hey! This repository contains an API written in ASP.NET Core 2.1 and front-end web-application written in experimental .NET web framework Blazor that runs via WebAssembly 🤓
 
 Implemented features:
-- Creating and editing tasks
+- CRUD (create, read, update and delete) actions on tasks
 - Managing categories and assigning tasks to them
 
 ## Getting Started with Blazor
@@ -16,9 +16,11 @@ To get setup with Blazor:
 
 ## Setup Database Connections
 
-When running on Windows, the server is using in memory database on default configuration. You can change that in the file appsettings.json. 
+This example is running on in memory database. You can change that in Startup.cs file.
 
->Note: .NET Core doesn't allow to use in memory database on other OS than Windows, so if you're not Windows user you have to configure database connection string in appsettings.json and use MySQL.
+<!-- When running on Windows, the server is using in memory database on default configuration. You can change that in the file appsettings.json. -->
+
+<!-- >Note: .NET Core doesn't allow to use in memory database on other OS than Windows, so if you're not Windows user you have to configure database connection string in appsettings.json and use MySQL. -->
 
 ## Screenshots
 
